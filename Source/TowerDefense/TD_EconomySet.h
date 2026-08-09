@@ -14,23 +14,18 @@ class TOWERDEFENSE_API UTD_EconomySet : public UAttributeSet
 	GENERATED_BODY()
 public:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
-
 	UPROPERTY(ReplicatedUsing = OnRep_Reward, BlueprintReadWrite, Category = TowerDefense)
 	FGameplayAttributeData Reward = 0.f;
 	ATTRIBUTE_ACCESSORS(UTD_EconomySet, Reward);
-
 	UPROPERTY(ReplicatedUsing = OnRep_Cost, BlueprintReadWrite, Category = TowerDefense)
 	FGameplayAttributeData Cost = 0.f;
 	ATTRIBUTE_ACCESSORS(UTD_EconomySet, Cost);
-
 	UPROPERTY(ReplicatedUsing = OnRep_SellValue, BlueprintReadWrite, Category = TowerDefense)
 	FGameplayAttributeData SellValue = 0.f;
 	ATTRIBUTE_ACCESSORS(UTD_EconomySet, SellValue);
-
-	UPROPERTY(ReplicatedUsing = OnRep_Manpower, BlueprintReadWrite, Category = TowerDefense)
-	FGameplayAttributeData Manpower = 0.f;
-	ATTRIBUTE_ACCESSORS(UTD_EconomySet, Manpower);
-
+	UPROPERTY(ReplicatedUsing = OnRep_Currency, BlueprintReadWrite, Category = TowerDefense)
+	FGameplayAttributeData Currency = 0.f;
+	ATTRIBUTE_ACCESSORS(UTD_EconomySet, Currency);
 	UFUNCTION()
 	void OnRep_Reward(const FGameplayAttributeData& OldValue);
 	UFUNCTION()
@@ -38,5 +33,5 @@ public:
 	UFUNCTION()
 	void OnRep_SellValue(const FGameplayAttributeData& OldValue);
 	UFUNCTION()
-	void OnRep_Manpower(const FGameplayAttributeData& OldValue);
+	void OnRep_Currency(const FGameplayAttributeData& OldValue);
 };
