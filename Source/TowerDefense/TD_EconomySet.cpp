@@ -8,6 +8,7 @@ void UTD_EconomySet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLi
     DOREPLIFETIME_CONDITION_NOTIFY(UTD_EconomySet, Cost, COND_None, REPNOTIFY_Always);
     DOREPLIFETIME_CONDITION_NOTIFY(UTD_EconomySet, SellValue, COND_None, REPNOTIFY_Always);
     DOREPLIFETIME_CONDITION_NOTIFY(UTD_EconomySet, Currency, COND_None, REPNOTIFY_Always);
+    DOREPLIFETIME_CONDITION_NOTIFY(UTD_EconomySet, StealAmount, COND_None, REPNOTIFY_Always);
 }
 void UTD_EconomySet::OnRep_Reward(const FGameplayAttributeData& OldValue)
 {
@@ -24,4 +25,8 @@ void UTD_EconomySet::OnRep_SellValue(const FGameplayAttributeData& OldValue)
 void UTD_EconomySet::OnRep_Currency(const FGameplayAttributeData& OldValue)
 {
     GAMEPLAYATTRIBUTE_REPNOTIFY(UTD_EconomySet, Currency, OldValue);
+}
+void UTD_EconomySet::OnRep_StealAmount(const FGameplayAttributeData& OldValue)
+{
+    GAMEPLAYATTRIBUTE_REPNOTIFY(UTD_EconomySet, StealAmount, OldValue);
 }

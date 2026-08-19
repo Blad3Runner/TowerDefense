@@ -26,6 +26,9 @@ public:
 	UPROPERTY(ReplicatedUsing = OnRep_Currency, BlueprintReadWrite, Category = TowerDefense)
 	FGameplayAttributeData Currency = 0.f;
 	ATTRIBUTE_ACCESSORS(UTD_EconomySet, Currency);
+	UPROPERTY(ReplicatedUsing = OnRep_StealAmount, BlueprintReadWrite, Category = TowerDefense)
+	FGameplayAttributeData StealAmount = 0.f;
+	ATTRIBUTE_ACCESSORS(UTD_EconomySet, StealAmount);
 	UFUNCTION()
 	void OnRep_Reward(const FGameplayAttributeData& OldValue);
 	UFUNCTION()
@@ -34,4 +37,6 @@ public:
 	void OnRep_SellValue(const FGameplayAttributeData& OldValue);
 	UFUNCTION()
 	void OnRep_Currency(const FGameplayAttributeData& OldValue);
+	UFUNCTION()
+	void OnRep_StealAmount(const FGameplayAttributeData& OldValue);
 };
