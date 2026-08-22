@@ -15,9 +15,15 @@ class TOWERDEFENSE_API UTD_CombatSet : public UAttributeSet
 public:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
+	virtual void PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data) override;
+
 	UPROPERTY(ReplicatedUsing = OnRep_Health, BlueprintReadWrite, Category = TowerDefense)
 	FGameplayAttributeData Health = 0.f;
 	ATTRIBUTE_ACCESSORS(UTD_CombatSet, Health);
+
+	UPROPERTY(ReplicatedUsing = OnRep_MaxHealth, BlueprintReadWrite, Category = TowerDefense)
+	FGameplayAttributeData MaxHealth = 0.f;
+	ATTRIBUTE_ACCESSORS(UTD_CombatSet, MaxHealth);
 
 	UPROPERTY(ReplicatedUsing = OnRep_Damage, BlueprintReadWrite, Category = TowerDefense)
 	FGameplayAttributeData Damage = 0.f;
@@ -26,10 +32,6 @@ public:
 	UPROPERTY(ReplicatedUsing = OnRep_Shield, BlueprintReadWrite, Category = TowerDefense)
 	FGameplayAttributeData Shield = 0.f;
 	ATTRIBUTE_ACCESSORS(UTD_CombatSet, Shield);
-
-	UPROPERTY(ReplicatedUsing = OnRep_ElemMult, BlueprintReadWrite, Category = TowerDefense)
-	FGameplayAttributeData ElemMult = 1.f;
-	ATTRIBUTE_ACCESSORS(UTD_CombatSet, ElemMult);
 
 	UPROPERTY(ReplicatedUsing = OnRep_FireRate, BlueprintReadWrite, Category = TowerDefense)
 	FGameplayAttributeData FireRate = 0.f;
@@ -54,11 +56,11 @@ public:
 	UFUNCTION()
 	void OnRep_Health(const FGameplayAttributeData& OldValue);
 	UFUNCTION()
+	void OnRep_MaxHealth(const FGameplayAttributeData& OldValue);
+	UFUNCTION()
 	void OnRep_Damage(const FGameplayAttributeData& OldValue);
 	UFUNCTION()
 	void OnRep_Shield(const FGameplayAttributeData& OldValue);
-	UFUNCTION()
-	void OnRep_ElemMult(const FGameplayAttributeData& OldValue);
 	UFUNCTION()
 	void OnRep_FireRate(const FGameplayAttributeData& OldValue);
 	UFUNCTION()
