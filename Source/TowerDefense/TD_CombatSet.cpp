@@ -15,16 +15,16 @@ void UTD_CombatSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLif
     DOREPLIFETIME_CONDITION_NOTIFY(UTD_CombatSet, HealValue, COND_None, REPNOTIFY_Always);
     DOREPLIFETIME_CONDITION_NOTIFY(UTD_CombatSet, BoostMult, COND_None, REPNOTIFY_Always);
 }
-void UTD_CombatSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
+void UTD_CombatSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
 {
-    Super::PostGameplayEffectExecute(Data);
+    Super::PreAttributeChange(Attribute, NewValue);
 
-    if (Data.EvaluatedData.Attribute == GetHealthAttribute())
+    if (Attribute == GetHealthAttribute())
     {
         const float Max = GetMaxHealth();
-        SetHealth(Max > 0.f
-            ? FMath::Clamp(GetHealth(), 0.f, Max)
-            : FMath::Max(GetHealth(), 0.f));
+        NewValue = Max > 0.f
+            ? FMath::Clamp(NewValue, 0.f, Max)
+            : FMath::Max(NewValue, 0.f);
     }
 }
 void UTD_CombatSet::OnRep_Health(const FGameplayAttributeData& OldValue)
