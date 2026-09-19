@@ -16,6 +16,8 @@ public:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
 	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
+	virtual void PreAttributeBaseChange(const FGameplayAttribute& Attribute, float& NewValue) const override;
+	void ClampAttributeValue(const FGameplayAttribute& Attribute, float& NewValue) const;
 
 	UPROPERTY(ReplicatedUsing = OnRep_Health, BlueprintReadWrite, Category = TowerDefense)
 	FGameplayAttributeData Health = 0.f;

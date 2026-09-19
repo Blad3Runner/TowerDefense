@@ -15,17 +15,32 @@ void UTD_CombatSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLif
     DOREPLIFETIME_CONDITION_NOTIFY(UTD_CombatSet, HealValue, COND_None, REPNOTIFY_Always);
     DOREPLIFETIME_CONDITION_NOTIFY(UTD_CombatSet, BoostMult, COND_None, REPNOTIFY_Always);
 }
-void UTD_CombatSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
+void UTD_CombatSet::ClampAttributeValue(const FGameplayAttribute& Attribute, float& NewValue) const
 {
-    Super::PreAttributeChange(Attribute, NewValue);
-
     if (Attribute == GetHealthAttribute())
     {
         const float Max = GetMaxHealth();
+        // MaxHealth can still be 0 while the init effect is being applied; only enforce the floor then.
         NewValue = Max > 0.f
             ? FMath::Clamp(NewValue, 0.f, Max)
             : FMath::Max(NewValue, 0.f);
     }
+    else if (Attribute == GetMaxHealthAttribute())
+    {
+        NewValue = FMath::Max(NewValue, 0.f);
+    }
+}
+void UTD_CombatSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
+{
+    Super::PreAttributeChange(Attribute, NewValue);
+
+    ClampAttributeValue(Attribute, NewValue);
+}
+void UTD_CombatSet::PreAttributeBaseChange(const FGameplayAttribute& Attribute, float& NewValue) const
+{
+    Super::PreAttributeBaseChange(Attribute, NewValue);
+
+    ClampAttributeValue(Attribute, NewValue);
 }
 void UTD_CombatSet::OnRep_Health(const FGameplayAttributeData& OldValue)
 {

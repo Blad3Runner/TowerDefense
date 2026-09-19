@@ -72,3 +72,6 @@ Plugins/**/Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+
+# Bought marketplace/Fab packs (re-downloadable, too big for GitHub)
+Content/ParagonRampage/
